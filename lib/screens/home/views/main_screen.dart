@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:expense_tracker_app/data/data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -219,7 +220,7 @@ class MainScreen extends StatelessWidget {
             SizedBox(height: 20),
             Expanded(
               child: ListView.builder(
-                itemCount: 6,
+                itemCount: transactionsData.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: EdgeInsets.only(bottom: 16),
@@ -239,16 +240,16 @@ class MainScreen extends StatelessWidget {
                                   width: 50,
                                   height: 50,
                                   decoration: BoxDecoration(
-                                    color: Colors.yellow[700],
+                                    color: transactionsData[index]['color'],
                                     shape: BoxShape.circle,
                                   ),
                                 ),
-                                Icon(Icons.food_bank,color: Colors.white),
+                                 transactionsData[index]['icon'],
                               ],
                             ),
                             SizedBox(width: 12),
                             Text(
-                              "Food",
+                              transactionsData[index]['name'],
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Theme.of(context).colorScheme.onBackground,
@@ -257,9 +258,10 @@ class MainScreen extends StatelessWidget {
                             ),
                             Spacer(),
                             Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
-                              "-\$45.00",
+                              transactionsData[index]['totalAmount'],
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Theme.of(context).colorScheme.onBackground,
@@ -267,7 +269,7 @@ class MainScreen extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              "Today",
+                              transactionsData[index]['date'],
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Theme.of(context).colorScheme.outline,

@@ -1,21 +1,40 @@
 import 'dart:math';
 
 import 'package:expense_tracker_app/screens/home/views/main_screen.dart';
+import 'package:expense_tracker_app/screens/stats/stats.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int indexNumber = 0;
+
+  var widgetList = [
+    MainScreen(),
+    StatScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //appBar: AppBar(),
       bottomNavigationBar: ClipRRect(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(30),
         ),
         child: BottomNavigationBar(
+          onTap: (value) {
+            setState(() {
+              indexNumber = value;
+            });
+          },
+          currentIndex: indexNumber,
+          selectedItemColor: Colors.blue,
           backgroundColor: Colors.white,
           showSelectedLabels: false,
           showUnselectedLabels: false,
@@ -53,7 +72,7 @@ class HomeScreen extends StatelessWidget {
           child: Icon(CupertinoIcons.add),
         ),
       ),
-      body: MainScreen(),
+      body: widgetList[indexNumber],
     );
   }
 }
